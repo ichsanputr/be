@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { KnexModule } from 'nest-knexjs';
 import { AuthModule } from './auth/auth.module';
+import { IlmuwanIslamModule } from './ilmuwan_islam/ilmuwan_islam.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
       },
     }),
     AuthModule,
+    IlmuwanIslamModule
   ],
   controllers: [AppController],
   providers: [AppService],

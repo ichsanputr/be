@@ -24,7 +24,7 @@ export class AuthController {
     }
 
     return {
-      msg: "Success",
+      message: "Success",
       access_token:  await this.jwtService.signAsync({
         user_id: users.id
       })
@@ -46,7 +46,7 @@ export class AuthController {
     }
 
     return {
-      msg: "Success"
+      message: "Success"
     };
   }
 }
