@@ -25,7 +25,7 @@ export class AuthController {
 
     return {
       message: "Success",
-      access_token:  await this.jwtService.signAsync({
+      access_token: await this.jwtService.signAsync({
         user_id: users.id
       })
     };
@@ -33,12 +33,15 @@ export class AuthController {
 
   @Post('/register')
   async registerUser(@Body() body: AuthRegisterDto) {
+    const randInt = Math.floor(Math.random() * 1078) + 1
     const users = await this.knex.table('users')
       .insert({
         id: uuid(),
         username: body.username,
         password: body.password,
         package: body.package,
+        hit_request: 0,
+        access_token: uuid() + randInt.toString()
       });
 
     if (!users) {

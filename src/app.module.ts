@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { KnexModule } from 'nest-knexjs';
 import { AuthModule } from './auth/auth.module';
 import { IlmuwanIslamModule } from './ilmuwan_islam/ilmuwan_islam.module';
+import { HitRequestMiddleware } from './hitrequest.middleware';
+import { WebModule } from './web/web.module';
 
 @Module({
   imports: [
@@ -20,12 +22,24 @@ import { IlmuwanIslamModule } from './ilmuwan_islam/ilmuwan_islam.module';
           password: "wmnhRszFvHYaL5bs",
           ssl: true
         },
+        debug: true
       },
     }),
     AuthModule,
+    WebModule,
     IlmuwanIslamModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(HitRequestMiddleware)
+      .exclude(
+        'auth/(.*)',
+        'web/(.*)',
+      )
+      .forRoutes('/*');
+  }
+}
