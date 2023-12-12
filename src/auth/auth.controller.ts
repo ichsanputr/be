@@ -52,4 +52,29 @@ export class AuthController {
       message: "Success"
     };
   }
+
+  @Post('/profile')
+  async getProfile(@Body() body: { access_token: string }) {
+    const jwtService = new JwtService()
+
+    const userData = await jwtService.verifyAsync(
+      body.access_token,
+      {
+        secret: 'hard!to-guess_secret'
+      }
+    );
+
+    const user = await this.knex.table('users')
+      .where('id', userData.user_id)
+      .select();
+
+    if (!user) {
+      throw new InternalServerErrorException()
+    }
+
+    return {
+      message: "Success",
+      data: user
+    };
+  }
 }
