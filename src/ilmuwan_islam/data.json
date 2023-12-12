@@ -4,6 +4,11 @@
             "name": "Ibnu Sina",
             "birth_year": "980",
             "death_year": "1037"
+        },
+        {
+            "name": "Muhammad bin Zakariya ar-Razi",
+            "birth_year": "865",
+            "death_year": "925"
         }
     ]
 }
