@@ -9,7 +9,8 @@ export class IlmuwanIslamController {
   async listAll() {
     return {
       message: 'success',
-      data: DATA.data
+      data: DATA.data,
+      total_data: DATA.data.length
     };
   }
 }

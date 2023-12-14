@@ -10,7 +10,7 @@ export class WebController {
       data: [
         {
           name: "Ilmuwan Islam",
-          description: IlmuwanIslam.data.length + " Ilmuwan yang tenar pada masanya",
+          description: IlmuwanIslam.data.length + " Ilmuwan islam yang tenar pada masanya",
         }
       ]
     };
