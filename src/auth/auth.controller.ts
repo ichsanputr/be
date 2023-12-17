@@ -106,6 +106,7 @@ export class AuthController {
 
   @Post('/google/verify')
   async googleVerify(@Body() body: { code: String }) {
+    console.log("google verify run")
     const data = await firstValueFrom(
       this.http.post('https://oauth2.googleapis.com/token', {
         code: body.code,
@@ -115,6 +116,7 @@ export class AuthController {
         grant_type: 'authorization_code'
       }).pipe(
         catchError((err) => {
+          console.log(err)
           throw err;
         }),
       )
