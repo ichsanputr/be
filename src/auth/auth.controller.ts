@@ -114,8 +114,8 @@ export class AuthController {
         redirect_uri: 'postmessage',
         grant_type: 'authorization_code'
       }).pipe(
-        catchError(() => {
-          throw 'An error happened!';
+        catchError((err) => {
+          throw err;
         }),
       )
     );
@@ -128,7 +128,7 @@ export class AuthController {
       }).pipe(
         catchError((err) => {
           console.log(err)
-          throw 'An error happened!';
+          throw err;
         }),
       )
     );
