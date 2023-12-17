@@ -88,9 +88,11 @@ export class AuthController {
 
     const randInt = Math.floor(Math.random() * 1078) + 1
 
+    const id = uuid()
+
     await this.knex.table('users')
       .insert({
-        id: uuid(),
+        id: id,
         username: resp.data.name,
         password: 1,
         package: 'free',
@@ -101,6 +103,9 @@ export class AuthController {
 
     return {
       message: "Success",
+      access_token: await this.jwtService.signAsync({
+        user_id: id
+      })
     };
   }
 
