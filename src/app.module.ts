@@ -1,11 +1,8 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { KnexModule } from 'nest-knexjs';
 import { AuthModule } from './auth/auth.module';
-import { IlmuwanIslamModule } from './ilmuwan_islam/ilmuwan_islam.module';
-import { HitRequestMiddleware } from './hitrequest.middleware';
-import { WebModule } from './web/web.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -15,31 +12,21 @@ import { WebModule } from './web/web.module';
         version: '5.7',
         useNullAsDefault: true,
         connection: {
-          host: "gateway01.eu-central-1.prod.aws.tidbcloud.com",
-          port: 4000,
-          database: "ruangdata",
-          user: "3xDtKQ4MJjQrGHb.root",
-          password: "wmnhRszFvHYaL5bs",
-          ssl: true
+          host: "localhost",
+          port: 3306,
+          database: "socketio",
+          user: "ichsan",
+          password: "123",
         },
-        debug: true
+        debug: false
       },
     }),
     AuthModule,
-    WebModule,
-    IlmuwanIslamModule
+    ChatModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
-export class AppModule implements NestModule{
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(HitRequestMiddleware)
-      .exclude(
-        'auth/(.*)',
-        'web/(.*)',
-      )
-      .forRoutes('/*');
-  }
+
+export class AppModule {
 }
