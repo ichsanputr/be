@@ -15,8 +15,8 @@ import { ChatModule } from './chat/chat.module';
           host: "localhost",
           port: 3306,
           database: "socketio",
-          user: "ichsan",
-          password: "123",
+          user: "root",
+          password: "",
         },
         debug: false
       },

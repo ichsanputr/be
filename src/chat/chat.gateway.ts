@@ -27,16 +27,22 @@ export class ChatGateway
   }
 
   async handleConnection(client: Socket, ...args: any[]) {
+    console.log("halooo conected")
     const jwtService = new JwtService()
 
-    const { user_id } = await jwtService.verifyAsync(
-      client.handshake.headers.token.toString(),
-      {
-        secret: 'hard!to-guess_secret'
-      }
-    );
+    try {
+      const { user_id } = await jwtService.verifyAsync(
+        client.handshake.headers.token.toString(),
+        {
+          secret: 'hard!to-guess_secret'
+        }
+      );
 
-    this.clients.push({ id: client.id, user_id })
+      this.clients.push({ id: client.id, user_id })
+    } catch (err) {
+      console.log(err)
+    }
+
     this.logger.log(`Client Connected: ${client}`);
   }
 

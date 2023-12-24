@@ -13,6 +13,18 @@ export class ChatController {
     private readonly chatGateway: ChatGateway
   ) { }
 
+  @Get('/tes')
+  async tes() {
+
+    const users = await this.knex.table('users')
+      .select();
+
+    return {
+      message: "Success",
+      data: users
+    };
+  }
+
   @Get('/users')
   async listUsers(@Req() req) {
     const jwtService = new JwtService()
